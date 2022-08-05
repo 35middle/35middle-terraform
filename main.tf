@@ -44,3 +44,8 @@ resource "aws_internet_gateway" "iv_igw" {
     Name = "${var.env_prefix}-iv-igw"
   }
 }
+
+resource "aws_route_table_association" "iv_rt_assoc" {
+  route_table_id = aws_route_table.iv_route_table.id
+  subnet_id = aws_subnet.iv-subnet-1.id
+}
