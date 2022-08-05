@@ -26,3 +26,21 @@ resource "aws_subnet" "iv-subnet-1" {
     Name = "${var.env_prefix}-iv-subnet-1"
   }
 }
+
+resource "aws_route_table" "iv_route_table" {
+  vpc_id = aws_vpc.iv_vpc.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.iv_igw.id
+  }
+  tags = {
+    Name = "${var.env_prefix}-iv-route-table"
+  }
+}
+
+resource "aws_internet_gateway" "iv_igw" {
+  vpc_id = aws_vpc.iv_vpc.id
+  tags = {
+    Name = "${var.env_prefix}-iv-igw"
+  }
+}
