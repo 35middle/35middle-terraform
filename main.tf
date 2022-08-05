@@ -15,6 +15,8 @@ variable "my_ip" {}
 
 variable "instance_type" {}
 
+variable "public_key_location" {}
+
 resource "aws_vpc" "iv_vpc" {
     cidr_block = var.vpc_cidr_block
     tags = {
@@ -99,6 +101,11 @@ output "aws_ami_id" {
   value = data.aws_ami.latest_amazon_linux_image.id
 }
 
+resource "aws_key_pair" "ssh_key" {
+  key_name = "server-key"
+  public_key = file(var.public_key_location)
+}
+
 resource "aws_instance" "iv_server" {
   ami = data.aws_ami.latest_amazon_linux_image.id
   instance_type = var.instance_type
@@ -106,7 +113,7 @@ resource "aws_instance" "iv_server" {
   subnet_id = aws_subnet.iv-subnet-1.id
   availability_zone = var.avail_zone
   associate_public_ip_address = true
-  key_name = "server-key-pair"
+  key_name = aws_key_pair.ssh_key.key_name
 
   tags = {
     Name = "${var.env_prefix}-iv-server"
