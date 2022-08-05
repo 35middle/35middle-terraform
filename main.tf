@@ -13,6 +13,8 @@ variable "env_prefix" {}
 
 variable "my_ip" {}
 
+variable "instance_type" {}
+
 resource "aws_vpc" "iv_vpc" {
     cidr_block = var.vpc_cidr_block
     tags = {
@@ -53,7 +55,7 @@ resource "aws_route_table_association" "iv_rt_assoc" {
   subnet_id = aws_subnet.iv-subnet-1.id
 }
 
-resource "aws_security_group" "iv_security-group" {
+resource "aws_security_group" "iv_security_group" {
   name = "${var.env_prefix}-iv-security-group"
   vpc_id = aws_vpc.iv_vpc.id
 
@@ -81,5 +83,32 @@ resource "aws_security_group" "iv_security-group" {
 
   tags = {
     Name = "${var.env_prefix}-iv-security-group"
+  }
+}
+
+data "aws_ami" "latest_amazon_linux_image" {
+  most_recent = true
+  owners = ["amazon"]
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
+  }
+}
+
+output "aws_ami_id" {
+  value = data.aws_ami.latest_amazon_linux_image.id
+}
+
+resource "aws_instance" "iv_server" {
+  ami = data.aws_ami.latest_amazon_linux_image.id
+  instance_type = var.instance_type
+  vpc_security_group_ids = [aws_security_group.iv_security_group.id]
+  subnet_id = aws_subnet.iv-subnet-1.id
+  availability_zone = var.avail_zone
+  associate_public_ip_address = true
+  key_name = "server-key-pair"
+
+  tags = {
+    Name = "${var.env_prefix}-iv-server"
   }
 }
