@@ -81,3 +81,24 @@ module "alb" {
   subnets            = module.networking.public_subnets[*].id
   target_group       = module.ecs_tg.tg.arn
 }
+
+data "aws_caller_identity" "current" {}
+
+resource "aws_ecr_repository" "main" {
+  name                 = "web/${var.project_id}/nextjs"
+  image_tag_mutability = "MUTABLE"
+}
+
+## CI/CD user role for managing pipeline for AWS ECR resources
+module "ecr_ecs_ci_user" {
+  source            = "github.com/Jareechang/tf-modules//iam/ecr?ref=v1.0.12"
+  env               = var.env
+  project_id        = var.project_id
+  create_ci_user    = true
+  # This is the ECR ARN - Feel free to add other repository as required (if you want to re-use role for CI/CD in other projects)
+  ecr_resource_arns = [
+    "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/web/${var.project_id}",
+    "arn:aws:ecr:${var.aws_region}:${data.aws_caller_identity.current.account_id}:repository/web/${var.project_id}/*"
+  ]
+  other_iam_statements = {}
+}
