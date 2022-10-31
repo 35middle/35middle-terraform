@@ -25,13 +25,6 @@ resource "aws_subnet" "public" {
   }
 }
 
-# resource "aws_route_table" "public" {
-#   vpc_id = aws_vpc.main.id
-#   tags = {
-#     Name = "${var.prefix}-route-table-public"
-#   }
-# }
-
 resource "aws_route" "public" {
   #   route_table_id         = aws_route_table.public.id
   route_table_id = aws_vpc.main.main_route_table_id

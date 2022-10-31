@@ -4,7 +4,6 @@ resource "aws_lb" "main" {
   load_balancer_type = "application"
   subnets            = aws_subnet.public.*.id
   security_groups    = [aws_security_group.alb.id]
-
   #   enable_deletion_protection = false
 }
 
@@ -60,13 +59,3 @@ resource "aws_alb_listener" "https" {
     type             = "forward"
   }
 }
-# resource "aws_alb_listener" "front_end" {
-#   load_balancer_arn = aws_lb.main.id
-#   port              = var.app_port
-#   protocol          = "HTTP"
-
-#   default_action {
-#     target_group_arn = aws_alb_target_group.main.id
-#     type             = "forward"
-#   }
-# }
