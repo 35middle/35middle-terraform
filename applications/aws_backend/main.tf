@@ -21,8 +21,8 @@ module "aws_backend" {
   environment = "uat"
   app_port = "3001"
   ecs_task_execution_role_name = "myEcsTaskExecutionRole"
-  fargate_cpu = "512"
-  fargate_memory = "1024"
+  fargate_cpu = "1024"
+  fargate_memory = "2048"
   app_count = "1"
   health_check_path = "/"
 }
