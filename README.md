@@ -27,8 +27,8 @@ This setup creates the following resources:
   and task definition to run docker containers from the ECR (incl. IAM execution role)
 - Secrets - a Terraform module that creates many secrets based on a `map` input value, and has a list of secret ARNs as an output value
 
-![example](https://github.com/Pip7747/Notebook-/blob/main/Untitled%20Diagram.drawio)
 
+![alt text](https://github.com/Pip7747/Notebook-/blob/main/Untitled%20Diagram.drawio raw=true)
 
 ### Get Started building your own infrastructure
 
