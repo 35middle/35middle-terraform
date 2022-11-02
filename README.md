@@ -28,7 +28,7 @@ This setup creates the following resources:
 - Secrets - a Terraform module that creates many secrets based on a `map` input value, and has a list of secret ARNs as an output value
 
 
-![alt text](https://github.com/Pip7747/Notebook-/blob/main/project7.png raw=true)
+![alt text](https://github.com/Pip7747/Notebook-/blob/main/project7.png)
 
 ### Get Started building your own infrastructure
 
