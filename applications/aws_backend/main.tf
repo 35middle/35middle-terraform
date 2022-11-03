@@ -17,7 +17,7 @@ module "aws_backend" {
   vpc_cidr                     = "10.0.0.0/16"
   availability_zones           = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
   ecr_image_name               = "35middle-backend-image"
-  az_count                     = "3"
+  az_count                     = "2"
   environment                  = "uat"
   app_port                     = "3001"
   ecs_task_execution_role_name = "myEcsTaskExecutionRole"
