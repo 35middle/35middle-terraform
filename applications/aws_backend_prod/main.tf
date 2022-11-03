@@ -16,7 +16,7 @@ module "aws_backend" {
   prefix                       = "35middle"
   vpc_cidr                     = "10.0.0.0/16"
   availability_zones           = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
-  ecr_image_name               = "35middle-backend-image"
+  ecr_image_name               = "35middle-backend-image-prod"
   az_count                     = "2"
   environment                  = "prod"
   app_port                     = "3001"
