@@ -15,9 +15,11 @@ resource "aws_ecs_task_definition" "main" {
     cpu    = 500
     memory = 1000
     image  = "${aws_ecr_repository.main.repository_url}:${var.release_version}"
-    # environmentFiles    = "${var.environment_file_path}"
     container_port = var.app_port
   })
+  tags = {
+    Name = "${var.prefix}-task-definition-${var.environment}"
+  }
 }
 
 resource "aws_ecs_service" "main" {

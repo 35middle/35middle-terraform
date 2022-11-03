@@ -25,4 +25,5 @@ module "aws_backend" {
   fargate_memory               = "2048"
   app_count                    = "1"
   health_check_path            = "/"
+  aws_acm_certificate_domain   = "*.thomasp3.link"
 }

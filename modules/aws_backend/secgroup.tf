@@ -3,13 +3,6 @@ resource "aws_security_group" "alb" {
   description = "controls access to the ALB"
   vpc_id      = aws_vpc.main.id
 
-  # ingress {
-  #   protocol    = "tcp"
-  #   from_port   = var.app_port
-  #   to_port     = var.app_port
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
-
   ingress {
     protocol         = "tcp"
     from_port        = 80
@@ -34,7 +27,7 @@ resource "aws_security_group" "alb" {
     ipv6_cidr_blocks = ["::/0"]
   }
   tags = {
-    Name = "${var.prefix}-secgroup-alb"
+    Name = "${var.prefix}-secgroup-alb-${var.environment}"
   }
 }
 
@@ -60,6 +53,6 @@ resource "aws_security_group" "ecs_tasks" {
   }
 
   tags = {
-    Name = "${var.prefix}-secgroup-ecs-task"
+    Name = "${var.prefix}-secgroup-ecs-task-${var.environment}"
   }
 }

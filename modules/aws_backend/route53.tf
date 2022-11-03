@@ -1,6 +1,5 @@
 data "aws_route53_zone" "selected" {
   name = "thomasp3.link"
-  #   private_zone = true
 }
 
 resource "aws_route53_record" "www" {
