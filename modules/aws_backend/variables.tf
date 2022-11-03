@@ -53,7 +53,7 @@ variable "ecr_image_name" {
 }
 
 variable "release_version" {
-  type = string
+  type        = string
   description = "Image version which needs to be deployed"
-  default = "latest"
+  default     = "latest"
 }
