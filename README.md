@@ -34,7 +34,7 @@ This setup creates the following resources:
 
 - Install terraform on MacOS with `brew install terraform`
 - For other system https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli`
-- execute `terraform init`, it will initialize your local terraform and connect it to the state store, and it will download all the necessary providers
-- execute `terraform plan -var-file="secret.tfvars" -var-file="environment.tfvars" -out="out.plan"` - this will calculate the changes terraform has to apply and creates a plan. If there are changes, you will see them. Check if any of the changes are expected, especially deletion of infrastructure.
+- execute `cd applications/aws_backend_uat && terraform init`, it will initialize your local terraform and connect it to the state store, and it will download all the necessary providers
+- execute `terraform plan -out="out.plan"` - this will calculate the changes terraform has to apply and creates a plan. If there are changes, you will see them. Check if any of the changes are expected, especially deletion of infrastructure.
 - if everything looks good, you can execute the changes with `terraform apply out.plan`
 
