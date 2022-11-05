@@ -1,10 +1,8 @@
 resource "aws_lb" "main" {
   name = "${var.prefix}-alb-${var.environment}"
-  #   internal           = false
   load_balancer_type = "application"
   subnets            = aws_subnet.public.*.id
   security_groups    = [aws_security_group.alb.id]
-  #   enable_deletion_protection = false
 }
 
 resource "aws_alb_target_group" "main" {
@@ -42,7 +40,7 @@ resource "aws_alb_listener" "http" {
 }
 
 data "aws_acm_certificate" "issued" {
-  domain   = "*.thomasp3.link"
+  domain   = var.aws_acm_certificate_domain
   statuses = ["ISSUED"]
 }
 
@@ -50,7 +48,6 @@ resource "aws_alb_listener" "https" {
   load_balancer_arn = aws_lb.main.id
   port              = 443
   protocol          = "HTTPS"
-
   ssl_policy      = "ELBSecurityPolicy-2016-08"
   certificate_arn = data.aws_acm_certificate.issued.arn
 

@@ -24,10 +24,6 @@ variable "app_port" {
   description = "Port exposed by the docker image to redirect traffic to"
 }
 
-# variable "app_image" {
-#   description = "Docker image to run in the ECS cluster"
-# }
-
 variable "ecs_task_execution_role_name" {
   description = "ECS task execution role name"
 }
@@ -53,7 +49,11 @@ variable "ecr_image_name" {
 }
 
 variable "release_version" {
-  type = string
+  type        = string
   description = "Image version which needs to be deployed"
-  default = "latest"
+  default     = "latest"
+}
+
+variable "aws_acm_certificate_domain" {
+  description = "issured acm domian"
 }

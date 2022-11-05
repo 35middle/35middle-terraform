@@ -1,13 +1,7 @@
 resource "aws_security_group" "alb" {
-  name   = "${var.prefix}-sg-alb-${var.environment}"
-  vpc_id = aws_vpc.main.id
-
-  ingress {
-    protocol    = "tcp"
-    from_port   = var.app_port
-    to_port     = var.app_port
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+  name        = "${var.prefix}-sg-alb-${var.environment}"
+  description = "controls access to the ALB"
+  vpc_id      = aws_vpc.main.id
 
   ingress {
     protocol         = "tcp"
@@ -33,14 +27,14 @@ resource "aws_security_group" "alb" {
     ipv6_cidr_blocks = ["::/0"]
   }
   tags = {
-    Name = "${var.prefix}-secgroup-alb"
+    Name = "${var.prefix}-secgroup-alb-${var.environment}"
   }
 }
 
 resource "aws_security_group" "ecs_tasks" {
-  name = "${var.prefix}-sg-task-${var.environment}"
-
-  vpc_id = aws_vpc.main.id
+  name        = "${var.prefix}-sg-task-${var.environment}"
+  description = "allow inbound access from the ALB only"
+  vpc_id      = aws_vpc.main.id
 
 
   ingress {
@@ -59,6 +53,6 @@ resource "aws_security_group" "ecs_tasks" {
   }
 
   tags = {
-    Name = "${var.prefix}-secgroup-ecs-task"
+    Name = "${var.prefix}-secgroup-ecs-task-${var.environment}"
   }
 }
