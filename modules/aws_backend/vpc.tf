@@ -13,7 +13,7 @@ resource "aws_internet_gateway" "main" {
 }
 
 resource "aws_subnet" "public" {
-  count             = var.az_count
+  count             = var.subnet_count
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(aws_vpc.main.cidr_block, 8, count.index)
   availability_zone = element(var.availability_zones, count.index)
@@ -24,8 +24,8 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count      = var.az_count
-  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, var.az_count + count.index)
+  count      = var.subnet_count
+  cidr_block = cidrsubnet(aws_vpc.main.cidr_block, 8, var.subnet_count + count.index)
   availability_zone = element(var.availability_zones, count.index)
   vpc_id = aws_vpc.main.id
   tags = {
